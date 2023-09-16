@@ -18,7 +18,7 @@ namespace math
         Vector3(T x, T y, T z);
 
         template <number U>
-        requires std::convertible_to<U, T> && !losslessly_convertible_to<U, T>
+        requires std::convertible_to<U, T> && (!losslessly_convertible_to<U, T>)
         explicit Vector3(const Vector3<U>& other);
 
         template <number U>
@@ -133,7 +133,7 @@ namespace math
 
     template <number T>
     template <number U>
-    requires std::convertible_to<U, T> && !losslessly_convertible_to<U, T>
+    requires std::convertible_to<U, T> && (!losslessly_convertible_to<U, T>)
     Vector3<T>::Vector3(const Vector3<U>& other)
         : x(static_cast<T>(other.x))
         , y(static_cast<T>(other.y))
@@ -180,7 +180,7 @@ namespace math
     }
 
     template <number T>
-    Vector3<make_floating_t<T>> Vector3<T>::normalized() const noexcept
+    Vector3<typename math::make_floating<T>::type> Vector3<T>::normalized() const noexcept
     {
         const F mag = magnitude();
         if (mag != 0)
@@ -192,13 +192,13 @@ namespace math
     }
 
     template <number T>
-    Vector3<make_floating_t<T>> Vector3<T>::normalized_unsafe() const noexcept
+    Vector3<typename math::make_floating<T>::type> Vector3<T>::normalized_unsafe() const noexcept
     {
         return static_cast<Vector3<F>>(*this) / magnitude();
     }
 
     template <number T>
-    Vector3<make_floating_t<T>> Vector3<T>::reciprocal() const noexcept
+    Vector3<typename math::make_floating<T>::type> Vector3<T>::reciprocal() const noexcept
     {
         constexpr F one_f = 1;
         return Vector3<F>(one_f / x, one_f / y, one_f / z);

@@ -42,7 +42,7 @@ namespace math
 		static constexpr Matrix4x4 from_rotation(const Vector3<F>& rotation);
 	};
 
-	using Matrix4x4f = Matrix4x4<float>;
+    using Matrix4x4f = Matrix4x4<float>;
 	using Matrix4x4d = Matrix4x4<double>;
 	using Matrix4x4i = Matrix4x4<int32_t>;
 	using Matrix4x4u = Matrix4x4<uint32_t>;
@@ -149,21 +149,21 @@ namespace math
 		return m;
 	}
 
-	template <number T>
-	Matrix4x4<make_floating_t<T>> Matrix4x4<T>::rotated(const Vector3<F>& rotation) const noexcept
-	{
-		// Skip applying rotation if it's sufficiently small
-		if (rotation.magnitude_sqr() < 0.01f)
-		{
-			return *this;
-		}
+	 template <number T>
+	 Matrix4x4<typename math::make_floating<T>::type> Matrix4x4<T>::rotated(const Vector3<F>& rotation) const noexcept
+	 {
+	 	// Skip applying rotation if it's sufficiently small
+	 	if (rotation.magnitude_sqr() < 0.01f)
+	 	{
+	 		return *this;
+	 	}
 
-		// x = pitch, y = yaw, z = roll
-		return from_rotation(rotation) * *this;
-	}
+	 	// x = pitch, y = yaw, z = roll
+	 	return from_rotation(rotation) * *this;
+	 }
 
 	template <number T>
-	Matrix4x4<make_floating_t<T>> Matrix4x4<T>::rotated(const Quaternion<F>& rotation) const noexcept
+	Matrix4x4<typename math::make_floating<T>::type> Matrix4x4<T>::rotated(const Quaternion<F>& rotation) const noexcept
 	{
 		const Quaternion<F>& r = rotation;
 

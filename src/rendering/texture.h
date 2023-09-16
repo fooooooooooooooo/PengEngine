@@ -16,14 +16,19 @@ namespace rendering
     class Texture
     {
     public:
+        GLint wrap_x = GL_REPEAT;
+        GLint wrap_y = GL_REPEAT;
+        GLint min_filter = GL_LINEAR_MIPMAP_LINEAR;
+        GLint max_filter = GL_LINEAR;
+        bool generate_mipmaps = true;
+
         struct Config
         {
-            GLint wrap_x = GL_REPEAT;
-            GLint wrap_y = GL_REPEAT;
-            GLint min_filter = GL_LINEAR_MIPMAP_LINEAR;
-            GLint max_filter = GL_LINEAR;
-
-            bool generate_mipmaps = true;
+            GLint wrap_x;
+            GLint wrap_y;
+            GLint min_filter;
+            GLint max_filter;
+            bool generate_mipmaps;
         };
 
         Texture(const std::string& name, const std::string& texture_path, const Config& config = {});

@@ -1,5 +1,6 @@
 #include "worker_thread.h"
 
+#ifdef WIN32
 #pragma warning( push, 0 )
 #include <windows.h>
 #pragma warning( pop )
@@ -21,6 +22,22 @@ WorkerThread::WorkerThread(std::string&& thread_name)
         worker_routine();
     });
 }
+#else
+using namespace threading;
+
+WorkerThread::WorkerThread(std::string &&thread_name)
+        : _running(true),
+        _worker_busy(false),
+        _num_pending_jobs(0)
+{
+    _worker = std::make_unique<std::thread>([this, name = std::move(thread_name)] {
+        pthread_setname_np(pthread_self(), name.c_str());
+
+        worker_routine();
+    });
+}
+
+#endif
 
 WorkerThread::~WorkerThread()
 {

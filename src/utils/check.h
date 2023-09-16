@@ -5,8 +5,16 @@
 
 #ifndef NO_CHECKS
 
-#include <intrin.h>
 #include <core/logger.h>
+
+#ifdef _WIN32
+#include <intrin.h>
+#define _BREAK __debugbreak()
+#else
+#include <signal.h>
+//#define _BREAK raise(SIGTRAP)
+#define _BREAK ((void)0)
+#endif
 
 #define STRINGIFY(x) #x
 #define TO_STR(x) STRINGIFY(x)
@@ -17,7 +25,7 @@
         if (!(expression)) [[unlikely]]                                                          \
         {                                                                                        \
             Logger::error("Assertion failed: " __FILE__ "(" TO_STR(__LINE__) "): " #expression); \
-            __debugbreak();                                                                      \
+            _BREAK;                                                                              \
         }                                                                                        \
     }                                                                                            \
     while (0)

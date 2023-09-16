@@ -1,0 +1,256 @@
+cmake_minimum_required(VERSION 3.25)
+project(peng)
+
+set(CMAKE_CXX_STANDARD 23)
+
+add_library(
+    peng STATIC
+    src/audio/audio_clip.cpp
+    src/audio/audio_decoder.cpp
+    src/audio/audio_decoder.h
+    src/audio/audio_pool.cpp
+    src/audio/audio_pool.h
+    src/audio/audio_source.cpp
+    src/audio/audio_source.h
+    src/audio/audio_subsystem.cpp
+    src/audio/audio_subsystem.h
+    src/audio/raw_audio_data.cpp
+    src/audio/raw_audio_data.h
+    src/common/common.h
+    src/components/box_collider_2d.cpp
+    src/components/box_collider_2d.h
+    src/components/collider_2d.cpp
+    src/components/collider_2d.h
+    src/components/fly_cam_controller.cpp
+    src/components/fly_cam_controller.h
+    src/components/mesh_renderer.cpp
+    src/components/mesh_renderer.h
+    src/components/rigid_body_2d.cpp
+    src/components/rigid_body_2d.h
+    src/components/rigid_body.cpp
+    src/components/rigid_body.h
+    src/components/sprite_renderer.cpp
+    src/components/sprite_renderer.h
+    src/components/text_renderer.cpp
+    src/components/text_renderer.h
+    src/core/archive.cpp
+    src/core/archive.h
+    src/core/asset.h
+    src/core/component_definition.h
+    src/core/component_factory.cpp
+    src/core/component_factory.h
+    src/core/component.cpp
+    src/core/component.h
+    src/core/detail/component_definition_bootstrap.h
+    src/core/detail/entity_definition_bootstrap.h
+    src/core/detail/reflection_bootstrap.h
+    src/core/entity_definition.h
+    src/core/entity_factory.cpp
+    src/core/entity_factory.h
+    src/core/entity_relationship.h
+    src/core/entity_subsystem.cpp
+    src/core/entity_subsystem.h
+    src/core/entity.cpp
+    src/core/entity.h
+    src/core/item_factory.h
+    src/core/logger.cpp
+    src/core/logger.h
+    src/core/peng_engine.cpp
+    src/core/peng_engine.h
+    src/core/reflected_type.h
+    src/core/reflection_database.cpp
+    src/core/reflection_database.h
+    src/core/serializable.cpp
+    src/core/serializable.h
+    src/core/serialized_member.h
+    src/core/subsystem_definition.h
+    src/core/subsystem.cpp
+    src/core/subsystem.h
+    src/core/tickable.cpp
+    src/core/tickable.h
+    src/entities/camera.cpp
+    src/entities/camera.h
+    src/entities/debug/bootloader.cpp
+    src/entities/debug/bootloader.h
+    src/entities/directional_light.cpp
+    src/entities/directional_light.h
+    src/entities/point_light.cpp
+    src/entities/point_light.h
+    src/entities/skybox.cpp
+    src/entities/skybox.h
+    src/entities/spot_light.cpp
+    src/entities/spot_light.h
+    src/input/axis.h
+    src/input/input_subsystem.cpp
+    src/input/input_subsystem.h
+    src/input/key_code.h
+    src/input/key_state.cpp
+    src/input/key_state.h
+    src/main.cpp
+    src/math/concepts.h
+    src/math/json_support.cpp
+    src/math/json_support.h
+    src/math/math.cpp
+    src/math/math.h
+    src/math/matrix.h
+    src/math/matrix3x3.h
+    src/math/matrix4x4.h
+    src/math/plane.cpp
+    src/math/plane.h
+    src/math/quaternion.h
+    src/math/ray.cpp
+    src/math/ray.h
+    src/math/transform.cpp
+    src/math/transform.h
+    src/math/vector2.h
+    src/math/vector3.h
+    src/math/vector4.h
+    src/memory/gc.cpp
+    src/memory/gc.h
+    src/memory/shared_ptr.h
+    src/memory/shared_ref.h
+    src/memory/weak_ptr.h
+    src/physics/aabb.cpp
+    src/physics/aabb.h
+    src/physics/layer.cpp
+    src/physics/layer.h
+    src/profiling/concat_macro.h
+    src/profiling/event_data.h
+    src/profiling/profiler_manager.cpp
+    src/profiling/profiler_manager.h
+    src/profiling/profiler.h
+    src/profiling/scoped_event.cpp
+    src/profiling/scoped_event.h
+    src/profiling/scoped_gpu_event.cpp
+    src/profiling/scoped_gpu_event.h
+    src/profiling/stub_profiler.h
+    src/rendering/bitmap_font.cpp
+    src/rendering/bitmap_font.h
+    src/rendering/blend_mode.h
+    src/rendering/draw_call_tree.cpp
+    src/rendering/draw_call_tree.h
+    src/rendering/draw_call.h
+    src/rendering/frame_buffer.cpp
+    src/rendering/frame_buffer.h
+    src/rendering/material.cpp
+    src/rendering/material.h
+    src/rendering/mesh_decoder.cpp
+    src/rendering/mesh_decoder.h
+    src/rendering/mesh.cpp
+    src/rendering/mesh.h
+    src/rendering/primitives.cpp
+    src/rendering/primitives.h
+    src/rendering/raw_mesh_data.cpp
+    src/rendering/raw_mesh_data.h
+    src/rendering/render_command.h
+    src/rendering/render_queue_stats.h
+    src/rendering/render_queue.cpp
+    src/rendering/render_queue.h
+    src/rendering/shader_buffer.h
+    src/rendering/shader_compiler.cpp
+    src/rendering/shader_compiler.h
+    src/rendering/shader_symbol.h
+    src/rendering/shader_type.cpp
+    src/rendering/shader_type.h
+    src/rendering/shader.cpp
+    src/rendering/shader.h
+    src/rendering/sprite_batcher.cpp
+    src/rendering/sprite_batcher.h
+    src/rendering/sprite_draw_call.h
+    src/rendering/sprite_sheet.cpp
+    src/rendering/sprite_sheet.h
+    src/rendering/sprite.cpp
+    src/rendering/sprite.h
+    src/rendering/structured_buffer.h
+    src/rendering/texture_binding_cache.cpp
+    src/rendering/texture_binding_cache.h
+    src/rendering/texture.cpp
+    src/rendering/texture.h
+    src/rendering/transparency_mode.h
+    src/rendering/utils.cpp
+    src/rendering/utils.h
+    src/rendering/vertex.cpp
+    src/rendering/vertex.h
+    src/rendering/window_icon.cpp
+    src/rendering/window_icon.h
+    src/rendering/window_subsystem.cpp
+    src/rendering/window_subsystem.h
+    src/scene/scene_loader.cpp
+    src/scene/scene_loader.h
+    src/threading/job.cpp
+    src/threading/job.h
+    src/threading/thread_pool.cpp
+    src/threading/thread_pool.h
+    src/threading/worker_thread.cpp
+    src/threading/worker_thread.h
+    src/utils/check.h
+    src/utils/concepts.h
+    src/utils/csv.cpp
+    src/utils/csv.h
+    src/utils/detail/final_act.h
+    src/utils/enum_flags.h
+    src/utils/event.h
+    src/utils/functional.h
+    src/utils/hash_helpers.h
+    src/utils/io.cpp
+    src/utils/io.h
+    src/utils/singleton.h
+    src/utils/strtools.cpp
+    src/utils/strtools.h
+    src/utils/timing.cpp
+    src/utils/timing.h
+    src/utils/traits.h
+    src/utils/utils.h
+    src/utils/variadic.h
+    src/utils/vectools.h
+    src/audio/audio_clip.h
+)
+
+target_include_directories(
+    peng
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/libs/moodycamel
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/libs/nlohmann
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/libs/stb
+)
+
+target_link_libraries(peng PRIVATE GL)
+
+find_package(glfw3 REQUIRED)
+target_link_libraries(peng PRIVATE glfw)
+
+find_package(GLEW REQUIRED)
+target_link_libraries(peng PRIVATE ${GLEW_LIBRARIES})
+target_include_directories(peng PRIVATE ${GLEW_INCLUDE_DIRS})
+
+find_package(OpenAL REQUIRED)
+target_link_libraries(peng PRIVATE ${OPENAL_LIBRARY})
+target_include_directories(peng PRIVATE ${OPENAL_INCLUDE_DIR})
+
+add_executable(peng_demo
+    src/main.cpp
+    src/demo/blob_entity.cpp
+    src/demo/debug_entity.cpp
+    src/demo/demo_controller.cpp
+    src/demo/demo_main.cpp
+    src/demo/gravity/gravity_controller.cpp
+    src/demo/gravity/rock.cpp
+    src/demo/pong/ball.cpp
+    src/demo/pong/goal.cpp
+    src/demo/pong/paddle.cpp
+    src/demo/pong/pause_menu.cpp
+    src/demo/pong/peng_pong.cpp
+    src/demo/blob_entity.h
+    src/demo/debug_entity.h
+    src/demo/demo_controller.h
+    src/demo/demo_main.h
+    src/demo/gravity/gravity_controller.h
+    src/demo/gravity/rock.h
+    src/demo/pong/ball.h
+    src/demo/pong/goal.h
+    src/demo/pong/paddle.h
+    src/demo/pong/pause_menu.h
+    src/demo/pong/peng_pong.h
+)
+
+target_link_libraries(peng_demo PRIVATE peng)

@@ -2,8 +2,8 @@
 
 #define DECLARE_SUBSYSTEM(SubsystemType) \
 public: \
-	static SubsystemType& get() \
+    static SubsystemType& get() \
     { \
         return Subsystem::get<SubsystemType>(); \
     } \
-private: \
+private:

@@ -24,7 +24,7 @@ void Rock::tick(float delta_time)
 {
 	Entity::tick(delta_time);
 
-	_radius = std::powf(mass, 0.33f) * scale;
+	_radius = std::pow(mass, 0.33f) * scale;
 
 	_local_transform.scale = math::Vector3f::one() * _radius;
 	_local_transform.position += velocity * delta_time;

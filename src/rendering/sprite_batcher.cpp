@@ -6,6 +6,7 @@
 #include <profiling/scoped_event.h>
 #include <utils/strtools.h>
 
+#include "utils.h"
 #include "sprite.h"
 #include "texture.h"
 #include "material.h"
@@ -194,7 +195,11 @@ void SpriteBatcher::bin_draws(
         // Flush all flat bins since the new draw is incompatible
         if (!compatible)
         {
+#ifdef WIN32
             draw_bins_out.append_range(std::move(alpha_bins));
+#else
+            append_range(draw_bins_out, std::move(alpha_bins));
+#endif
             alpha_bins.clear();
             matching_bin = nullptr;
         }
@@ -211,7 +216,12 @@ void SpriteBatcher::bin_draws(
         alpha_bin.add_draw(processed_draw, bin_key);
     }
 
+#ifdef WIN32
     draw_bins_out.append_range(std::move(alpha_bins));
+#else
+    append_range(draw_bins_out, std::move(alpha_bins));
+#endif
+
     for (DrawBin& opaque_bin : opaque_bins | std::views::values)
     {
         draw_bins_out.push_back(std::move(opaque_bin));

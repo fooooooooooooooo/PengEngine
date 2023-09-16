@@ -71,7 +71,10 @@ peng::shared_ref<T> Asset<T>::load_mutable()
     else
     {
         SCOPED_EVENT("Loading asset", _path.c_str());
-        Logger::log("Loading asset '%s'", _path.c_str());
+        auto buffer = new char [256];
+        getcwd(buffer, 256);
+
+        Logger::log("Loading asset '%s' in '%s'", _path.c_str(), buffer);
 
         check(exists());
         Archive archive = Archive::from_disk(_path);

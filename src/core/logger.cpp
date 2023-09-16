@@ -1,6 +1,7 @@
 #include "logger.h"
 
 #include <iostream>
+#include <time.h>
 
 #include <utils/io.h>
 
@@ -123,7 +124,11 @@ tm Logger::time_now_info() const
 {
 	const time_t time_now = time(nullptr);
 	tm time_info = {};
+#ifdef _WIN32
 	localtime_s(&time_info, &time_now);
+#else
+    localtime_r(&time_now, &time_info);
+#endif
 
 	return time_info;
 }

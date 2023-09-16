@@ -4,12 +4,14 @@
 #include <profiling/scoped_gpu_event.h>
 #include <utils/strtools.h>
 #include <utils/vectools.h>
+#include <vector>
 
 #include "draw_call.h"
 #include "mesh.h"
 #include "shader.h"
 #include "material.h"
 #include "render_queue_stats.h"
+#include "utils.h"
 
 using namespace rendering;
 
@@ -145,7 +147,11 @@ std::vector<ShaderDrawTree> DrawCallTree::merge_shader_draws(std::vector<ShaderD
         ShaderDrawTree* current = vectools::try_back(merged_draws);
         if (current && current->shader == shader_draw.shader)
         {
+#ifdef WIN32
             current->mesh_draws.append_range(std::move(shader_draw.mesh_draws));
+#else
+            append_range(current->mesh_draws, std::move(shader_draw.mesh_draws));
+#endif
         }
         else
         {
@@ -165,7 +171,11 @@ std::vector<MeshDrawTree> DrawCallTree::merge_mesh_draws(std::vector<MeshDrawTre
         MeshDrawTree* current = vectools::try_back(merged_draws);
         if (current && current->mesh == mesh_draw.mesh)
         {
+#ifdef WIN32
             current->draw_calls.append_range(std::move(mesh_draw.draw_calls));
+#else
+            append_range(current->draw_calls, std::move(mesh_draw.draw_calls));
+#endif
         }
         else
         {

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 
 #include "concepts.h"
 
@@ -20,7 +21,7 @@ namespace math
         Vector2(T x, T y);
 
         template <number U>
-        requires std::convertible_to<U, T> && !losslessly_convertible_to<U, T>
+        requires std::convertible_to<U, T> && (!losslessly_convertible_to<U, T>)
         explicit Vector2(const Vector2<U>& other);
 
         template <number U>
@@ -92,7 +93,7 @@ namespace math
 
     template <number T>
     template <number U>
-    requires std::convertible_to<U, T> && !losslessly_convertible_to<U, T>
+    requires std::convertible_to<U, T> && (!losslessly_convertible_to<U, T>)
     Vector2<T>::Vector2(const Vector2<U>& other)
         : x(static_cast<T>(other.x))
         , y(static_cast<T>(other.y))
@@ -137,7 +138,7 @@ namespace math
     }
 
     template <number T>
-    Vector2<make_floating_t<T>> Vector2<T>::normalized() const noexcept
+    Vector2<typename math::make_floating<T>::type> Vector2<T>::normalized() const noexcept
     {
         const F mag = magnitude();
         if (mag != 0)
@@ -149,13 +150,13 @@ namespace math
     }
 
     template <number T>
-    Vector2<make_floating_t<T>> Vector2<T>::normalized_unsafe() const noexcept
+    Vector2<typename math::make_floating<T>::type> Vector2<T>::normalized_unsafe() const noexcept
     {
         return static_cast<Vector2<F>>(*this) / magnitude();
     }
 
     template <number T>
-    Vector2<make_floating_t<T>> Vector2<T>::reciprocal() const noexcept
+    Vector2<typename math::make_floating<T>::type> Vector2<T>::reciprocal() const noexcept
     {
         constexpr F one_f = 1;
         return Vector2<F>(one_f / x, one_f / y);

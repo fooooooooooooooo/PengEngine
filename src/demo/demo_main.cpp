@@ -9,6 +9,8 @@
 #include <rendering/window_icon.h>
 #include <entities/debug/bootloader.h>
 
+#define NO_PROFILING
+
 #ifndef NO_PROFILING
 #include <profiling/superluminal_profiler.h>
 #endif
@@ -38,7 +40,7 @@ namespace demo
             }
         });
 #endif
-        
+
         rendering::WindowSubsystem::get().set_resolution(math::Vector2i(1280, 720));
         rendering::WindowSubsystem::get().set_vsync(false);
         PengEngine::get().set_target_frametime(0);

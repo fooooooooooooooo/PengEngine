@@ -1,3 +1,4 @@
+#include <thread>
 #include "timing.h"
 
 namespace timing

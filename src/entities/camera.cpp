@@ -148,7 +148,7 @@ Matrix4x4f Camera::calc_projection_matrix()
 		    {
 			    case PixelPerfectMode::nearest:			px_rounded = std::round(px_rounded); break;
 				case PixelPerfectMode::increase_size:	px_rounded = std::floor(px_rounded); break;
-				case PixelPerfectMode::decrease_size:	px_rounded = std::ceilf(px_rounded); break;
+				case PixelPerfectMode::decrease_size:	px_rounded = std::ceil(px_rounded); break;
                 default: check(false);
             }
 

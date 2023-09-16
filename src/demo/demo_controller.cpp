@@ -86,7 +86,7 @@ void DemoController::post_create()
 void DemoController::tick(float delta_time)
 {
 	Entity::tick(delta_time);
-	
+
 	_age += delta_time;
 
 	if (InputSubsystem::get()[KeyCode::num_row_9].pressed())
@@ -118,7 +118,7 @@ void DemoController::tick(float delta_time)
 			const float age = _age * (1 + 0.3f * i);
 			light_data.color = Vector3f::one() * 0.5 + Vector3f(std::sin(age), std::sin(age * 1.2f), std::sin(age * 1.4f)) / 2;
 
-			_light_entities[i]->local_transform().scale = Vector3f::one() * 0.2f * std::powf(light_data.range, 0.33f);
+			_light_entities[i]->local_transform().scale = Vector3f::one() * 0.2f * std::pow(light_data.range, 0.33f);
 			_light_renderers[i]->material()->set_parameter("base_color", Vector4f(light_data.color, 1));
 		}
 	}
