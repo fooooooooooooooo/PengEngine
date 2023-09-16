@@ -4,7 +4,7 @@ project(peng)
 set(CMAKE_CXX_STANDARD 23)
 
 add_library(
-    peng STATIC
+    peng SHARED
     src/audio/audio_clip.cpp
     src/audio/audio_decoder.cpp
     src/audio/audio_decoder.h
@@ -86,7 +86,6 @@ add_library(
     src/input/key_code.h
     src/input/key_state.cpp
     src/input/key_state.h
-    src/main.cpp
     src/math/concepts.h
     src/math/json_support.cpp
     src/math/json_support.h
