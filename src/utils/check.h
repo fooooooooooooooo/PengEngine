@@ -12,7 +12,8 @@
 #define _BREAK __debugbreak()
 #else
 #include <signal.h>
-//#define _BREAK raise(SIGTRAP)
+// raising sigtrap seems to exit before the Logger can flush so you get no output
+// #define _BREAK raise(SIGTRAP)
 #define _BREAK ((void)0)
 #endif
 
